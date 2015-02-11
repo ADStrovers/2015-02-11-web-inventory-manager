@@ -1,5 +1,27 @@
 <h2>Welcome to <%= params[:type].capitalize %> Management System </h2>
 
+<form action="/new">
+  <input type="text" name="type" value="<%= params[:type] %>" hidden>
 <% @req.each do |x| %>
-<%= "<p><label name=\"#{x}\">#{x.capitalize}:</label></p>" %>
+     <p><label for="<%= x %>"><%= x.capitalize %>:</label>
+<% case x %>
+<%   when "name", "description" %>
+      <input type="text" name="<%= x %>"></p>
+<%   when "price", "quantity" %>
+      <input type="number" name="<%= x %>"></p>
+<%   when "shelf_id" %>
+      <select name="shelf_id">
+        <% @shelf_list.each do |location| %>
+          <option value="<%= location["id"] %>"><%= "#{location["id"]} - #{location["name"]}" %></option>
+        <% end %>
+      </select>
+<%   when "category_id" %>
+      <select name="category_id">
+        <% @category_list.each do |category| %>
+          <option value="<%= category["id"] %>"><%= category["id"] %> - <%= category["name"] %></option>
+        <% end %>
+      </select>
+<%   end %>
 <% end %>
+<button type="submit">Create Your New <%= params[:type].capitalize %></button>
+</form>

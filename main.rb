@@ -2,6 +2,7 @@ require 'sinatra'
 require 'sqlite3'
 require 'rubygems'
 require 'active_support/inflector'
+require 'pry'
 
 DATABASE = SQLite3::Database.new("inventory_management.db")
 
@@ -17,11 +18,11 @@ before "/" do
   when "create"
     redirect to("/create?#{query_string}")
   when "view"
-    
+    redirect to("/view?#{query_string}")
   when "modify"
-    
+    redirect to("/modify?#{query_string}")
   when "delete"
-    
+    redirect to("/delete?#{query_string}")
   end
 end
 
@@ -29,9 +30,8 @@ get "/" do
   erb :homepage
 end
 
-get "/results" do
-  # Get param with category/product/shelf and redirect the erb call based on that information.
-  # Should allow me to display results for each type in this one spot.
+get "/search" do
+  
 end
 
 get "/modify" do
@@ -43,6 +43,17 @@ get "/delete" do
 end
 
 get "/view" do
+  case params[:type]
+  when "shelf"
+    @result = Shelf.search_for("id", params[:id])
+    @obj = Shelf.new(@result[0])
+  when "product"
+    @result = Product.search_for("id", params[:id])
+    @obj = Product.new(@result[0])    
+  when "category"
+    @result = Category.search_for("id", params[:id])
+    @obj = Category.new(@result[0])
+  end
   erb :view
 end
 
@@ -52,8 +63,26 @@ get "/create" do
     @req = Shelf.requirements
   when "product"
     @req = Product.requirements
+    @shelf_list = Shelf.list_all
+    @category_list = Category.list_all
   when "category"
     @req = Category.requirements
   end
   erb :create
+end
+
+after "/new" do
+  redirect to("/view?type=#{params[:type]}&id=#{@obj.id}")
+end
+
+get "/new" do
+  case params[:type]
+  when "shelf"
+    @obj = Shelf.new(params)
+  when "product"
+    @obj = Product.new(params)
+  when "category"
+    @obj = Category.new(params)
+  end
+  @obj.insert
 end

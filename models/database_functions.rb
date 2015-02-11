@@ -29,7 +29,7 @@ module DatabaseMethods
     # None
     
     def list_all
-      list = DATABASE.execute("SELECT name FROM #{self.to_s.pluralize}")
+      list = DATABASE.execute("SELECT * FROM #{self.to_s.pluralize}")
     end
     
     # Public: #delete
