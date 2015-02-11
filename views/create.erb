@@ -1,0 +1,5 @@
+<h2>Welcome to <%= params[:type].capitalize %> Management System </h2>
+
+<% @req.each do |x| %>
+<%= "<p><label name=\"#{x}\">#{x.capitalize}:</label></p>" %>
+<% end %>

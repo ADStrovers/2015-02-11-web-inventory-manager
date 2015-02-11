@@ -1,4 +1,21 @@
 <h1>Welcome to SMART</h1>
 <h3 class="subheader">Shelf Management Assistant Resource Terminal</h3>
 
-<p>What would you like to work with today?</p>
+<p>What would you like to do today?</p>
+
+<form action="/">
+  <select name="action">
+    <option value="create">Create</option>
+    <option value="view">View</option>
+    <option value="modify">Modify</option>
+    <option value="delete">Delete</option>
+  </select>
+  
+  <select name="type">
+    <option value="shelf">Shelf</option>
+    <option value="product">Product</option>
+    <option value="category">Category</option>
+  </select>
+  
+  <button type="sumbit">Submit</button>
+</form>
