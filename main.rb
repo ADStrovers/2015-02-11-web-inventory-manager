@@ -12,6 +12,14 @@ require_relative "models/category"
 require_relative "models/product"
 require_relative "models/shelf"
 
+before "/new" do
+  binding.pry
+  if params[:type].nil?
+    redirect to("/")
+  end
+  binding.pry
+end
+
 before "/" do
   query_string = params.map{ |key, value| "#{key}=#{value}"}.join("&")
   case params[:action]
@@ -71,10 +79,6 @@ get "/create" do
   erb :create
 end
 
-after "/new" do
-  redirect to("/view?type=#{params[:type]}&id=#{@obj.id}")
-end
-
 get "/new" do
   case params[:type]
   when "shelf"
@@ -85,4 +89,5 @@ get "/new" do
     @obj = Category.new(params)
   end
   @obj.insert
+  redirect to("/view?type=#{params[:type]}&id=#{@obj.id}")
 end
