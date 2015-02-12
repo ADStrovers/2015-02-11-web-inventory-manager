@@ -18,12 +18,11 @@ module DatabaseMethods
   
   module ClassDatabaseMethods
     
-    # Public: #list_all
-    # Lists all the names from the corresponding database table.
-    # IE: Shelf.class = shelves table.
+    # Public: #all
+    # Return all rows that belong to the class' database as objects
     #
     # Returns:
-    # Empty Array or an Array full of objects belonging to the parent class.
+    # An array of objects.
     #
     # State Changes:
     # None
@@ -55,14 +54,14 @@ module DatabaseMethods
     end
     
     # Public: #search_for
-    # Searches the classes database based on input
+    # Searches the classes database based on input and returns all rows as objects.
     #
     # Parameters:
     # field - String: the field within the database to search
     # value - String: The value to search within the field for.
     #
     # Returns:
-    # Empty Array or an Array full of objects belonging to the parent class.
+    # An array full of objects belonging to the parent class that meet the search criteria.
     #
     # State Changes:
     # None
