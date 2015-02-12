@@ -77,7 +77,7 @@ module DatabaseMethods
         results = DATABASE.execute("SELECT * FROM #{self.to_s.pluralize} WHERE #{field} = '#{value}'")
       end
     
-      results.each{ |x| results_as_objects << x}
+      results.each{ |x| results_as_objects << self.new(x)}
     
       results_as_objects
     end
