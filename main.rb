@@ -4,20 +4,25 @@ require 'rubygems'
 require 'active_support/inflector'
 require 'pry'
 
-DATABASE = SQLite3::Database.new("inventory_management.db")
+DATABASE = SQLite3::Database.new("./database/inventory_management.db")
 
+# models = Dir["./models/*.rb"]
+# models.each do |file|
+#   require_relative file
+# end
 require_relative "models/database_setup"
 require_relative "models/database_functions"
 require_relative "models/category"
 require_relative "models/product"
 require_relative "models/shelf"
+require_relative "helpers/create_helper"
+
+helpers CreateHelper
 
 before "/new" do
-  binding.pry
   if params[:type].nil?
     redirect to("/")
   end
-  binding.pry
 end
 
 before "/" do
@@ -76,6 +81,7 @@ get "/create" do
   when "category"
     @req = Category.requirements
   end
+  @strings = create_helper(@req)
   erb :create
 end
 

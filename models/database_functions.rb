@@ -29,7 +29,13 @@ module DatabaseMethods
     # None
     
     def list_all
+      results = []
       list = DATABASE.execute("SELECT * FROM #{self.to_s.pluralize}")
+      list.each do |x|
+        results << self.new(x) if x != nil
+      end
+      
+      results
     end
     
     # Public: #delete
