@@ -23,12 +23,12 @@ module DatabaseMethods
     # IE: Shelf.class = shelves table.
     #
     # Returns:
-    # Array
+    # Empty Array or an Array full of objects belonging to the parent class.
     #
     # State Changes:
     # None
     
-    def list_all
+    def all
       results = []
       list = DATABASE.execute("SELECT * FROM #{self.to_s.pluralize}")
       list.each do |x|
@@ -45,7 +45,7 @@ module DatabaseMethods
     # id - Integer: Primary ID of the row to be deleted.
     #
     # Returns:
-    # Array
+    # Empry Array
     #
     # State Changes:
     # None
@@ -62,7 +62,7 @@ module DatabaseMethods
     # value - String: The value to search within the field for.
     #
     # Returns:
-    # Array
+    # Empty Array or an Array full of objects belonging to the parent class.
     #
     # State Changes:
     # None
@@ -77,8 +77,10 @@ module DatabaseMethods
         results = DATABASE.execute("SELECT * FROM #{self.to_s.pluralize} WHERE #{field} = '#{value}'")
       end
     
-      results.each{ |x| results_as_objects << self.new(x)}
-    
+      results.each do |x| 
+        results_as_objects << self.new(x) if x != nil
+      end
+      
       results_as_objects
     end
     
@@ -104,7 +106,7 @@ module DatabaseMethods
   # Saves the given object to the database
   #
   # Returns:
-  # []
+  # Empty Array.
   #
   # State Changes:
   # None

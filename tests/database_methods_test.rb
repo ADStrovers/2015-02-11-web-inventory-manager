@@ -26,12 +26,12 @@ class DatabaseMethodsTest < Minitest::Test
     assert_kind_of Integer, test.id
   end
   
-  # Testing .list_all as well as initializing built on top of .insert passing before.
+  # Testing .all as well as initializing built on top of .insert passing before.
   
   def test_shelf_name_should_be_equal_to_passed_in_name
     test = Shelf.new({"name" => "North"})
     test.insert
-    shelves = Shelf.list_all
+    shelves = Shelf.all
     
     assert_equal "North", shelves[-1].name
   end
@@ -41,7 +41,7 @@ class DatabaseMethodsTest < Minitest::Test
     test.insert
     test.name = "North-West"
     test.save
-    shelves = Shelf.list_all
+    shelves = Shelf.all
     
     assert_equal "North-West", shelves[-1].name
   end

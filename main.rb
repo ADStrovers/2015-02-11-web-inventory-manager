@@ -16,8 +16,9 @@ require_relative "models/category"
 require_relative "models/product"
 require_relative "models/shelf"
 require_relative "helpers/create_helper"
+require_relative "helpers/path_redirect_helper"
 
-helpers CreateHelper
+helpers CreateHelper, PathRedirectHelper
 
 before "/new" do
   if params[:type].nil?
@@ -59,14 +60,13 @@ get "/view" do
   case params[:type]
   when "shelf"
     @result = Shelf.search_for("id", params[:id])
-    @obj = Shelf.new(@result[0])
   when "product"
     @result = Product.search_for("id", params[:id])
-    @obj = Product.new(@result[0])    
   when "category"
+    binding.pry
     @result = Category.search_for("id", params[:id])
-    @obj = Category.new(@result[0])
   end
+  @obj = @result[0]
   erb :view
 end
 
@@ -76,8 +76,8 @@ get "/create" do
     @req = Shelf.requirements
   when "product"
     @req = Product.requirements
-    @shelf_list = Shelf.list_all
-    @category_list = Category.list_all
+    @shelf_list = Shelf.all
+    @category_list = Category.all
   when "category"
     @req = Category.requirements
   end
@@ -95,5 +95,5 @@ get "/new" do
     @obj = Category.new(params)
   end
   @obj.insert
-  redirect to("/view?type=#{params[:type]}&id=#{@obj.id}")
+  path_redirect("view")
 end
