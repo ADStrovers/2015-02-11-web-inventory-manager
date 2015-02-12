@@ -1,6 +1,6 @@
 <p>
 <% @obj.instance_variables.each do |x| %>
-<% x = x.to_s.delete("@") %>
+  <% x = x.to_s.delete("@") %>
   <p><label for="<%= x %>"><%= x %>:</label>
   <input type="text" name="<%= x %>" disabled value="<%= @obj.send(x) %>"></p>
 <% end %>
