@@ -43,3 +43,74 @@ button {
        between the labels and their text fields */
     margin-left: .5em;
 }
+
+nav {
+  float: left; 
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  clear: both;
+  width: 20%; 
+  margin: 5% auto;
+  background: #eee;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+nav li {
+	float: none; 
+  width: 100%;
+}
+
+nav li a {
+  display: block; 
+  width: 100%; 
+  padding: 20px; 
+  border-left: 5px solid; 
+  position: relative; 
+  z-index: 2;
+  text-decoration: none;
+  color: #444;
+  box-sizing: border-box;  
+  -moz-box-sizing: border-box;  
+  -webkit-box-sizing: border-box; 
+}
+
+nav li a:hover {
+  border-bottom: 0px; color: #fff;
+}
+
+nav li:first-child a {
+  border-left: 10px solid #3498db; 
+}
+
+nav li a:after { 
+  content: "";
+  height: 100%; 
+  left: 0; 
+  top: 0; 
+  width: 0px;  
+  position: absolute; 
+  transition: all 0.3s ease 0s; 
+  -webkit-transition: all 0.3s ease 0s; 
+  z-index: -1;
+}
+
+nav li a:hover:after{ 
+  width: 100%; 
+}
+
+nav li:first-child a:after{ 
+  background: #3498db; 
+}
+
+.yielded {
+  float: right;
+  top: 0;
+  right: 100%;
+  width: 80%;
+}
